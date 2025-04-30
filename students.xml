@@ -1,0 +1,49 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="students.css"?>
+<students>
+    <student>
+        <id>138</id>
+        <name>Snehal Rohidas</name>
+        <age>20</age>
+        <department>Computer Science</department>
+        <email>snehalrohidas@gmail.com</email>
+    </student>
+    <student>
+        <id>137</id>
+        <name>Bhagyashri Patil</name>
+        <age>20</age>
+        <department>Information Technology</department>
+        <email>bhagyashripatil@gmail.com</email>
+    </student>
+    <student>
+        <id>123</id>
+        <name>Shraddha Dhumal</name>
+        <age>21</age>
+        <department>Computer Science</department>
+        <email>Shraddhadhumal3@gmail.com</email>
+    </student>
+
+    <student>
+        <id>115</id>
+        <name>Sarthak Rohidas</name>
+        <age>24</age>
+        <department>Mechanical </department>
+        <email>sarthakrohidas5@gmail.com</email>
+    </student>
+
+   <student>
+        <id>116</id>
+        <name>Shubham Chavan</name>
+        <age>25</age>
+        <department>Architecture  </department>
+        <email>chavanshubham@gmail.com</email>
+    </student>
+   <student>
+        <id>117</id>
+        <name>Sujeet Chavan</name>
+        <age>23</age>
+        <department>Mechanical </department>
+        <email>sujeetchavan@gmail.com</email>
+    </student>
+</students>

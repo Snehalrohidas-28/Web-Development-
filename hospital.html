@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthCare Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5faff;
+      color: #333;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    header {
+      background: linear-gradient(135deg, #4db6ac, #00897b);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      background: white;
+      color: #00897b;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #e0f7fa;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .doctor-cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 240px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    /* Multicolor for the Doctor Section */
+    .doctor-cards .card h3 {
+      color: #009688;
+    }
+
+    .doctor-cards .card p {
+      color: #673ab7;
+    }
+
+    .appointment form {
+      background: white;
+      max-width: 500px;
+      margin: 30px auto 0;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    form input, form select {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: border 0.2s;
+    }
+
+    form input:focus, form select:focus {
+      outline: none;
+      border: 1.5px solid #00897b;
+    }
+
+    form button {
+      background: #00897b;
+      color: white;
+      padding: 14px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #00695c;
+    }
+
+    /* Multicolor for Book Appointment Section */
+    .appointment h2 {
+      color: #ff4081;
+      margin-bottom: 30px;
+    }
+
+    .appointment form input,
+    .appointment form select {
+      border: 2px solid #ff4081;
+    }
+
+    .appointment form button {
+      background: #ff4081;
+      color: white;
+    }
+
+    .appointment form button:hover {
+      background: #e91e63;
+    }
+
+    footer {
+      background: #004d40;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    .booked-orders {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #e0f7fa;
+      border-radius: 15px;
+    }
+
+    .order-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .order-card h3 {
+      font-size: 1.2rem;
+      color: #00897b;
+    }
+
+    .order-card p {
+      font-size: 1rem;
+    }
+
+    .order-card span {
+      font-weight: 600;
+      color: #00897b;
+    }
+
+    /* Multicolor for Confirm Booking Section */
+    .booked-orders h2 {
+      color: #3f51b5;
+    }
+
+    .booked-orders .order-card h3 {
+      color: #009688;
+    }
+
+    .booked-orders .order-card p {
+      color: #ff4081;
+    }
+
+    /* Multicolor for button section */
+    .btn {
+      background: linear-gradient(45deg, #ff4081, #673ab7);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #ff4081, #004d40);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .doctor-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>🏥 HealthCare Clinic</h1>
+      <p>Where Care Meets Excellence</p>
+      <a href="#appointment" class="btn">Book Appointment</a>
+    </div>
+  </header>
+
+  <section class="doctors">
+    <h2>Meet Our Experts</h2>
+    <div class="doctor-cards">
+      <div class="card">
+        <img src="https://via.placeholder.com/150" alt="Doctor 1" />
+        <h3>Dr. Ayesha Khan</h3>
+        <p>Cardiologist</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/150" alt="Doctor 2" />
+        <h3>Dr. Rohan Mehta</h3>
+        <p>Dermatologist</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/150" alt="Doctor 3" />
+        <h3>Dr. Neha Gupta</h3>
+        <p>Neurologist</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="appointment" class="appointment">
+    <h2>Book an Appointment</h2>
+    <form id="bookingForm">
+      <div>
+        <input type="text" id="name" placeholder="Full Name" required />
+      </div>
+      <div>
+        <input type="email" id="email" placeholder="Email Address" required />
+      </div>
+      <div>
+        <input type="date" id="date" required />
+      </div>
+      <div>
+        <select id="doctor" required>
+          <option value="">Select Doctor</option>
+          <option>Dr. Ayesha Khan</option>
+          <option>Dr. Rohan Mehta</option>
+          <option>Dr. Neha Gupta</option>
+        </select>
+      </div>
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </section>
+
+  <div id="bookedOrders" class="booked-orders">
+    <h2>Booked Orders</h2>
+    <div id="ordersList"></div>
+  </div>
+
+  <footer>
+    <p>📍 HealthCare Clinic, Delhi | 📞 +91-9876543210</p>
+    <p>© 2025 HealthCare Clinic. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const ordersList = document.getElementById('ordersList');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the page from reloading
+
+      // Get the form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const date = document.getElementById('date').value;
+      const doctor = document.getElementById('doctor').value;
+
+      // Create a new order card with spans for styling
+      const orderCard = document.createElement('div');
+      orderCard.classList.add('order-card');
+      orderCard.innerHTML = `
+        <h3>Appointment for ${doctor}</h3>
+        <p><span>Name:</span> ${name}</p>
+        <p><span>Email:</span> ${email}</p>
+        <p><span>Date:</span> ${date}</p>
+      `;
+
+      // Append the order to the orders list
+      ordersList.appendChild(orderCard);
+
+      // Clear the form after submission
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
