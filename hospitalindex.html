@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hospital Appointment Booking</title>
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fad0c4);;
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #333;
+    color: inherit;
+    line-height: 1.6;
+  }
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+header {
+  background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff6a88, #ffc371);
+  background-size: 400% 400%;
+  animation: headerGradient 10s ease infinite;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  transition: background 0.5s ease;
+}
+
+@keyframes headerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+  .logo {
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  nav {
+    display: flex;
+    gap: 1.6rem;
+  }
+
+  nav a {
+    color: #dbeaff;
+    padding: 0.6rem 1.4rem;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 0 0 #dbeaff;
+  }
+
+  nav a:hover,
+  nav a:focus,
+  nav a.active {
+    background: #024a86;
+    color: #e0e8f9;
+    box-shadow: inset 0 0 8px 2px #99b8e6;
+    outline: none;
+    transform: translateY(-2px);
+  }
+
+  main {
+    max-width: 720px;
+    margin: 3rem auto 5rem;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2.8rem 3rem;
+    box-shadow: 0 16px 40px rgba(4,102,200,0.15);
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  h2 {
+    color: orange;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+  }
+
+  p.subtitle {
+    text-align: center;
+    color: #A00A08;
+    margin-bottom: 2.4rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  /* Sections hidden by default except active */
+  section.content-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.4s ease;
+  }
+  section.content-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Home section background */
+  #home {
+    background-image: url('https://images.pexels.com/photos/3845761/pexels-photo-3845761.jpeg?auto=compress&cs=tinysrgb&w=900');
+    background-size: cover;
+    background-position: center center;
+    color: #f2f7fa;
+    border-radius: 16px;
+    padding: 4rem 3rem 4.5rem;
+    box-shadow: inset 0 0 0 2000px rgba(2, 39, 71, 0.6);
+    line-height: 1.5em;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+  }
+  #home p {
+    font-size: 1.2rem;
+    max-width: 90%;
+    margin: 0 auto 1.8rem;
+  }
+
+  /* Common form styles */
+  form {
+    display: grid;
+    gap: 1.8rem;
+    font-size: 1rem;
+  }
+
+  label {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    display: block;
+    color: #024a86;
+    text-shadow: 0 1px 0 #c4d2e3;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea,
+  input[type="date"],
+  input[type="time"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.75rem 1.2rem;
+    border-radius: 14px;
+    border: 2px solid #aecffa;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: #f4f9ff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(142,180,255,.1);
+    color: #084aab;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  select:focus,
+  textarea:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  input[type="number"]:focus {
+    outline: none;
+    border-color: #0477d9;
+    background-color: #e5f1ff;
+    box-shadow: 0 0 10px 4px rgba(0,120,255,0.3);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+  }
+
+  .form-row > div {
+    flex: 1 1 220px;
+  }
+
+  button[type="submit"] {
+    cursor: pointer;
+    padding: 1rem 2.6rem;
+    font-size: 1.3rem;
+    font-weight: 900;
+    background-image: linear-gradient(45deg, #037fff, #0452b3);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 8px 25px rgba(3, 127, 255, 0.7);
+    transition: background-image 0.35s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    width: 100%;
+    letter-spacing: 0.1em;
+  }
+  button[type="submit"]:hover,
+  button[type="submit"]:focus {
+    background-image: linear-gradient(135deg, #0452b3, #037fff);
+    box-shadow: 0 12px 40px rgba(3, 127, 255, 0.85);
+    outline: none;
+    transform: translateY(-4px);
+  }
+
+  /* Doctor Category separate label style */
+  .doctor-category-label {
+    margin-bottom: 0.6rem;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #055293;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* Feedback rating stars style */
+  .rating-group {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 0.3rem;
+  }
+  .rating-group label {
+    color: #024a86;
+    font-weight: 700;
+    user-select: none;
+  }
+  .rating-group input[type="radio"] {
+    display: none;
+  }
+  .rating-group label.star {
+    font-size: 2.2rem;
+    color: #c1c1c1;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+  }
+  .rating-group input[type="radio"]:checked ~ label.star,
+  .rating-group label.star:hover,
+  .rating-group label.star:hover ~ label.star {
+    color: #ffc107;
+    filter: drop-shadow(0 0 4px #ffbb33);
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #627d98;
+    margin-top: 3rem;
+    padding-bottom: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    main {
+      margin: 2rem 1rem 4rem;
+      padding: 2rem 1.8rem;
+      min-height: auto;
+    }
+    h2 {
+      font-size: 2.1rem;
+    }
+    nav a {
+      padding: 0.45rem 0.9rem;
+      font-size: 1rem;
+    }
+    .form-row {
+      flex-direction: column;
+    }
+    .rating-group {
+      justify-content: flex-start;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" tabindex="0">City Hospital</div>
+  <nav aria-label="Primary Navigation">
+    <a href="#home" class="nav-link active" data-tab="home" role="tab" aria-selected="true" tabindex="0">Home</a>
+    <a href="#book-appointment" class="nav-link" data-tab="book-appointment" role="tab" tabindex="0">Book Appointment</a>
+    <a href="#about-us" class="nav-link" data-tab="about-us" role="tab" tabindex="0">About Us</a>
+    <a href="#feedback" class="nav-link" data-tab="feedback" role="tab" tabindex="0">Feedback</a>
+  </nav>
+</header>
+
+<main>
+  <!-- Home Section -->
+  <section id="home" class="content-section active" role="tabpanel" tabindex="0" aria-label="Home">
+    <h2>Welcome to<br> </h2>
+<h2>City Hospital</h2>
+    <p class="subtitle">Your health, our priority. Book your appointment quickly and securely.</p>
+    <p>
+      At City Hospital, we provide top-notch medical services with experienced doctors across multiple specialties.
+      Our state-of-the-art facilities and compassionate care ensure you receive the best treatment possible.
+    </p>
+  </section>
+
+  <!-- Book Appointment Section -->
+<section id="book-appointment" class="content-section" role="tabpanel" tabindex="0" aria-label="Book Appointment">
+  <h1>Book Your Appointment</h1>
+  <p class="subtitle">Schedule your visit with our top doctors quickly and easily</p>
+
+  <form id="booking-form" aria-label="Hospital appointment booking form" novalidate>
+    <div>
+      <label for="patient-name">Full Name *</label>
+      <input type="text" id="patient-name" name="patientName" placeholder="Your full name" required aria-required="true" />
+    </div>
+
+    <div>
+      <label for="patient-email">Email Address *</label>
+      <input type="email" id="patient-email" name="patientEmail" placeholder="example@mail.com" required aria-required="true" />
+    </div>
+
+    <div>
+      <label for="patient-phone">Phone Number *</label>
+      <input type="tel" id="patient-phone" name="patientPhone" placeholder="+1 234 567 890" pattern="^(\+?\\d[- .]*){7,15}$" required aria-required="true" />
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="department">Department *</label>
+        <select id="department" name="department" required aria-required="true">
+          <option value="" disabled selected>Select Department</option>
+          <option value="cardiology">Cardiology</option>
+          <option value="neurology">Neurology</option>
+          <option value="dermatology">Dermatology</option>
+          <option value="orthopedics">Orthopedics</option>
+          <option value="pediatrics">Pediatrics</option>
+          <option value="general">General Medicine</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="doctor">Doctor *</label>
+        <select id="doctor" name="doctor" required aria-required="true" disabled>
+          <option value="" disabled selected>Select Doctor</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="appointment-date">Appointment Date *</label>
+        <input type="date" id="appointment-date" name="appointmentDate" required aria-required="true" />
+      </div>
+
+      <div>
+        <label for="appointment-time">Appointment Time *</label>
+        <input type="time" id="appointment-time" name="appointmentTime" required aria-required="true" />
+      </div>
+    </div>
+
+    <div>
+      <label for="notes">Additional Notes</label>
+      <textarea id="notes" name="notes" placeholder="Any details or requests..."></textarea>
+    </div>
+
+    <button type="submit" aria-label="Submit appointment booking form">Book Appointment</button>
+  </form>
+
+  <div id="confirmation" style="display:none; margin-top:2rem; background:#e0f7fa; padding:1rem; border-radius:8px;">
+    <h3>Appointment Booked Successfully!</h3>
+    <p><strong>Name:</strong> <span id="conf-name"></span></p>
+    <p><strong>Email:</strong> <span id="conf-email"></span></p>
+    <p><strong>Phone:</strong> <span id="conf-phone"></span></p>
+    <p><strong>Department:</strong> <span id="conf-dept"></span></p>
+    <p><strong>Doctor:</strong> <span id="conf-doctor"></span></p>
+    <p><strong>Date:</strong> <span id="conf-date"></span></p>
+    <p><strong>Time:</strong> <span id="conf-time"></span></p>
+    <p><strong>Notes:</strong> <span id="conf-notes"></span></p>
+  </div>
+</section>
+
+<script>
+  // Set today's date as minimum for appointment date
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("appointment-date").setAttribute("min", today);
+
+  // Indian Doctors in City Hospital Kolhapur
+  const doctors = {
+    cardiology: ["Dr. Ramesh Patil", "Dr. Anjali Kulkarni"],
+    neurology: ["Dr. Suresh Shinde", "Dr. Megha Jadhav"],
+    dermatology: ["Dr. Amruta Desai", "Dr. Ravi Khare"],
+    orthopedics: ["Dr. Prashant Kadam", "Dr. Nilesh Pawar"],
+    pediatrics: ["Dr. Swati Bhosale", "Dr. Akshay Mane"],
+    general: ["Dr. Mahesh Jagtap", "Dr. Neha Salunkhe"]
+  };
+
+  // Populate doctors on department change
+  document.getElementById("department").addEventListener("change", function () {
+    const selectedDept = this.value;
+    const doctorSelect = document.getElementById("doctor");
+    doctorSelect.innerHTML = `<option disabled selected>Select Doctor</option>`;
+    if (doctors[selectedDept]) {
+      doctors[selectedDept].forEach(doc => {
+        const opt = document.createElement("option");
+        opt.value = doc;
+        opt.textContent = doc;
+        doctorSelect.appendChild(opt);
+      });
+      doctorSelect.disabled = false;
+    } else {
+      doctorSelect.disabled = true;
+    }
+  });
+
+  // Handle form submission
+  document.getElementById("booking-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    document.getElementById("conf-name").textContent = document.getElementById("patient-name").value;
+    document.getElementById("conf-email").textContent = document.getElementById("patient-email").value;
+    document.getElementById("conf-phone").textContent = document.getElementById("patient-phone").value;
+    document.getElementById("conf-dept").textContent = document.getElementById("department").value;
+    document.getElementById("conf-doctor").textContent = document.getElementById("doctor").value;
+    document.getElementById("conf-date").textContent = document.getElementById("appointment-date").value;
+    document.getElementById("conf-time").textContent = document.getElementById("appointment-time").value;
+    document.getElementById("conf-notes").textContent = document.getElementById("notes").value || "None";
+
+    document.getElementById("confirmation").style.display = "block";
+    this.reset();
+    document.getElementById("doctor").disabled = true;
+  });
+</script>
+
+
+
+  <!-- About Us Section -->
+  <section id="about-us" class="content-section" role="tabpanel" tabindex="0" aria-label="About Us">
+    <h1>About City Hospital</h1>
+    <p>
+      City Hospital has been providing quality healthcare for over 25 years. We are dedicated to personalized patient care,
+      advanced medical technology, and a compassionate staff focused on your well-being. Our multidisciplinary teams collaborate
+      to offer comprehensive health services tailored to your needs.
+    </p>
+    <p>
+      Our mission is to improve the health and lives of our community members through excellence in healthcare delivery,
+      education, and research.
+    </p>
+  </section>
+
+  <!-- Feedback Section -->
+  <section id="feedback" class="content-section" role="tabpanel" tabindex="0" aria-label="Feedback">
+    <h1>We Value Your Feedback</h1>
+    <p>Please share your experience or suggestions to help us serve you better.</p>
+    <form id="feedback-form" novalidate>
+      <div>
+        <label for="feedback-email">Email Address *</label>
+        <input type="email" id="feedback-email" name="feedbackEmail" placeholder="example@mail.com" required aria-required="true" />
+      </div>
+      <div>
+        <label>Rating *</label>
+        <div class="rating-group" role="radiogroup" aria-labelledby="rating-label">
+          <input type="radio" id="star5" name="rating" value="5" required />
+          <label for="star5" class="star" title="5 stars">&#9733;</label>
+          <input type="radio" id="star4" name="rating" value="4" />
+          <label for="star4" class="star" title="4 stars">&#9733;</label>
+          <input type="radio" id="star3" name="rating" value="3" />
+          <label for="star3" class="star" title="3 stars">&#9733;</label>
+          <input type="radio" id="star2" name="rating" value="2" />
+          <label for="star2" class="star" title="2 stars">&#9733;</label>
+          <input type="radio" id="star1" name="rating" value="1" />
+          <label for="star1" class="star" title="1 star">&#9733;</label>
+        </div>
+      </div>
+      <div>
+        <label for="feedback-message">Additional Response</label>
+        <textarea id="feedback-message" name="feedbackMessage" placeholder="Your feedback here..."></textarea>
+      </div>
+      <button type="submit" aria-label="Submit feedback form">Submit Feedback</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>CityCare Hospital · 123 Main St, Kolhapur · Phone: (123) 456-7890 · Email: info@cityhospital.com</p>
+</footer>
+
+<script>
+  // Navigation tab switching
+  const navLinks = document.querySelectorAll('nav a.nav-link');
+  const sections = document.querySelectorAll('section.content-section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetTab = link.getAttribute('data-tab');
+
+      navLinks.forEach(l => {
+        l.classList.remove('active');
+        l.setAttribute('aria-selected', 'false');
+        l.tabIndex = -1;
+      });
+      sections.forEach(section => section.classList.remove('active'));
+
+      link.classList.add('active');
+      link.setAttribute('aria-selected', 'true');
+      link.tabIndex = 0;
+
+      const targetSection = document.getElementById(targetTab);
+      if (targetSection) {
+        targetSection.classList.add('active');
+        targetSection.focus();
+      }
+    });
+  });
+
+  // Doctor and appointment form logic
+  const doctorsByDepartment = {
+    cardiology: [
+      "Dr.  Ramesh Patil <rameshpatil@cityhospital.com>",
+      "Dr.  Anjali Kulkarni <anjalikulkarni@cityhospital.com>"
+    ],
+    neurology: [
+      "Dr. Suresh Shinde <sureshshinde@cityhospital.com>",
+      "Dr. Megha Jadhav<meghaiadhav@cityhospital.com>"
+    ],
+    dermatology: [
+      "Dr. Amruta Desai <amrutadesai@cityhospital.com>",
+      "Dr. Ravi Khare <ravikhare@citychospital.com>"
+    ],
+    orthopedics: [
+      "Dr. Prashant Kadam <prashantkadam@cityhospital.com>",
+      "Dr. Nilesh Pawar <nileshpowar@cityhospital.com>"
+    ],
+    pediatrics: [
+      "Dr. Swati Bhosale<swatibhosale@cityhospital.com>",
+      "Dr.  Akshay Mane <akshay.mane@cityhospital.com>"
+    ],
+    general: [
+      "Dr. Mahesh Jagtap<mahesh.jagtap@cityhospital.com>",
+      "Dr. Neha Salunkhe <neha.salunkhe@cityhospital.com>"
+    ]
+  };
+
+  function getEmailFromDoctor(doctorStr) {
+    const match = doctorStr.match(/<([^>]+)>/);
+    return match ? match[1] : '';
+  }
+
+  const departmentSelect = document.getElementById('department');
+  const doctorSelect = document.getElementById('doctor');
+  const doctorCategoryLabel = document.getElementById('doctor-category-label');
+  const appointmentDateInput = document.getElementById('appointment-date');
+  const bookingForm = document.getElementById('booking-form');
+
+  function setMinDate() {
+    const today = new Date().toISOString().split('T')[0];
+    appointmentDateInput.setAttribute('min', today);
+  }
+  setMinDate();
+
+  departmentSelect.addEventListener('change', () => {
+    const selectedDept = departmentSelect.value;
+    doctorSelect.innerHTML = '<option value="" disabled selected>Select Doctor</option>';
+    doctorSelect.disabled = !selectedDept;
+    if (selectedDept && doctorsByDepartment[selectedDept]) {
+      doctorsByDepartment[selectedDept].forEach(doctor => {
+        const option = document.createElement('option');
+        option.value = doctor;
+        option.textContent = doctor.replace(/<[^>]+>/, '').trim();
+        doctorSelect.appendChild(option);
+      });
+      doctorCategoryLabel.style.display = 'block';
+    } else {
+      doctorCategoryLabel.style.display = 'none';
+    }
+  });
+
+  bookingForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    if (!bookingForm.checkValidity()) {
+      bookingForm.reportValidity();
+      return;
+    }
+
+    const phoneInput = document.getElementById('patient-phone');
+    const phonePattern = /^(\+?\d[- .]*){7,15}$/;
+    if (!phonePattern.test(phoneInput.value)) {
+      phoneInput.setCustomValidity('Please enter a valid phone number with digits and optional +, - or spaces.');
+      phoneInput.reportValidity();
+      phoneInput.setCustomValidity('');
+      return;
+    }
+
+    const patientName = document.getElementById('patient-name').value.trim();
+    const patientEmail = document.getElementById('patient-email').value.trim();
+    const patientPhone = phoneInput.value.trim();
+    const department = departmentSelect.options[departmentSelect.selectedIndex].text;
+    const doctorFull = doctorSelect.value;
+    const doctorName = doctorSelect.options[doctorSelect.selectedIndex].text;
+    const doctorEmail = getEmailFromDoctor(doctorFull);
+    const appointmentDate = document.getElementById('appointment-date').value;
+    const appointmentTime = document.getElementById('appointment-time').value;
+    const notes = document.getElementById('notes').value.trim() || 'N/A';
+
+    if (!doctorEmail) {
+      alert('Please select a valid doctor.');
+      return;
+    }
+
+    const emailBody = encodeURIComponent(
+      `Dear ${doctorName},%0D%0A%0D%0A` +
+      `You have a new appointment booking:%0D%0A` +
+      `Patient Name: ${patientName}%0D%0A` +
+      `Patient Email: ${patientEmail}%0D%0A` +
+      `Phone Number: ${patientPhone}%0D%0A` +
+      `Department: ${department}%0D%0A` +
+      `Appointment Date: ${appointmentDate}%0D%0A` +
+      `Appointment Time: ${appointmentTime}%0D%0A` +
+      `Additional Notes: ${notes}%0D%0A%0D%0AThank you.%0D%0ACityCare Hospital`
+    );
+
+    const mailtoLink = `mailto:${doctorEmail}?subject=New Appointment Booking from ${encodeURIComponent(patientName)}&body=${emailBody}`;
+
+    window.location.href = mailtoLink;
+
+    bookingForm.reset();
+    doctorSelect.disabled = true;
+    doctorCategoryLabel.style.display = 'none';
+  });
+
+  // Feedback form
+  const feedbackForm = document.getElementById('feedback-form');
+  feedbackForm.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!feedbackForm.checkValidity()) {
+      feedbackForm.reportValidity();
+      return;
+    }
+    alert('Thank you for your feedback!');
+    feedbackForm.reset();
+  });
+</script>
+</body>
+</html>
