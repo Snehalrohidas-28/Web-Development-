@@ -124,7 +124,6 @@ header {
     font-weight: 600;
   }
 
-  /* Sections hidden by default except active */
   section.content-section {
     display: none;
     opacity: 0;
@@ -137,7 +136,6 @@ header {
     transform: translateY(0);
   }
 
-  /* Home section background */
   #home {
     background-image: url('https://images.pexels.com/photos/3845761/pexels-photo-3845761.jpeg?auto=compress&cs=tinysrgb&w=900');
     background-size: cover;
@@ -155,7 +153,6 @@ header {
     margin: 0 auto 1.8rem;
   }
 
-  /* Common form styles */
   form {
     display: grid;
     gap: 1.8rem;
@@ -241,7 +238,6 @@ header {
     transform: translateY(-4px);
   }
 
-  /* Doctor Category separate label style */
   .doctor-category-label {
     margin-bottom: 0.6rem;
     font-weight: 800;
@@ -250,7 +246,6 @@ header {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
   }
 
-  /* Feedback rating stars style */
   .rating-group {
     display: flex;
     gap: 0.9rem;
@@ -279,18 +274,43 @@ header {
     color: #ffc107;
     filter: drop-shadow(0 0 4px #ffbb33);
   }
+.footer {
+  background: linear-gradient(135deg, #02457a, #0379a0);
+  color: #f1f1f1;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  footer {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #627d98;
-    margin-top: 3rem;
-    padding-bottom: 2.5rem;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-  }
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+}
 
-  /* Responsive adjustments */
+.footer-section {
+  flex: 1 1 250px;
+}
+
+.footer-section h3, .footer-section h4 {
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.footer-section p {
+  margin: 0.3rem 0;
+  line-height: 1.5;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #cfd8dc;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+}
+
   @media (max-width: 600px) {
     main {
       margin: 2rem 1rem 4rem;
@@ -413,11 +433,9 @@ header {
 </section>
 
 <script>
-  // Set today's date as minimum for appointment date
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("appointment-date").setAttribute("min", today);
 
-  // Indian Doctors in City Hospital Kolhapur
   const doctors = {
     cardiology: ["Dr. Ramesh Patil", "Dr. Anjali Kulkarni"],
     neurology: ["Dr. Suresh Shinde", "Dr. Megha Jadhav"],
@@ -427,7 +445,6 @@ header {
     general: ["Dr. Mahesh Jagtap", "Dr. Neha Salunkhe"]
   };
 
-  // Populate doctors on department change
   document.getElementById("department").addEventListener("change", function () {
     const selectedDept = this.value;
     const doctorSelect = document.getElementById("doctor");
@@ -445,7 +462,6 @@ header {
     }
   });
 
-  // Handle form submission
   document.getElementById("booking-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -465,8 +481,6 @@ header {
 </script>
 
 
-
-  <!-- About Us Section -->
   <section id="about-us" class="content-section" role="tabpanel" tabindex="0" aria-label="About Us">
     <h1>About City Hospital</h1>
     <p>
@@ -513,12 +527,33 @@ header {
   </section>
 </main>
 
-<footer>
-  <p>CityCare Hospital · 123 Main St, Kolhapur · Phone: (123) 456-7890 · Email: info@cityhospital.com</p>
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>CityCare Hospital, Kolhapur</h3>
+      <p>Rajaram Road, Kolhapur - 416008, Maharashtra, India</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contact Info</h4>
+      <p><strong>Phone:</strong> +91 231 2654321</p>
+      <p><strong>Ambulance:</strong> +91 98230 12345</p>
+      <p><strong>Email:</strong> info@citycarehospital.com</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Working Hours</h4>
+      <p>Mon - Sat: 8:00 AM to 8:00 PM</p>
+      <p>Sun: Emergency Only</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CityCare Hospital Kolhapur. All rights reserved.</p>
+  </div>
 </footer>
 
+
 <script>
-  // Navigation tab switching
   const navLinks = document.querySelectorAll('nav a.nav-link');
   const sections = document.querySelectorAll('section.content-section');
 
@@ -546,7 +581,6 @@ header {
     });
   });
 
-  // Doctor and appointment form logic
   const doctorsByDepartment = {
     cardiology: [
       "Dr.  Ramesh Patil <rameshpatil@cityhospital.com>",
@@ -662,7 +696,6 @@ header {
     doctorCategoryLabel.style.display = 'none';
   });
 
-  // Feedback form
   const feedbackForm = document.getElementById('feedback-form');
   feedbackForm.addEventListener('submit', event => {
     event.preventDefault();
